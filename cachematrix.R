@@ -22,9 +22,18 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## The following function returns a matrix that is as inversed 
-## version of initial matrix
+## The following function returns a matrix that is an inverse 
+## of special "matrix", returned by makeCacheMatrix function
 
 cacheSolve <- function(x, ...) {
-        solve(x)
+        inv <- x$getinv()
+        if (!is.null(inv)) {
+          message("Retrieving the inverse from cache")
+          return(inv)
+        }
+        
+        data <- x$get()
+        inv <- solve(data, ...)
+        x$setinv(inv)
+        return(inv)
 }
