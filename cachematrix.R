@@ -22,16 +22,18 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## The following function returns a matrix that is an inverse 
-## of special "matrix", returned by makeCacheMatrix function
-
+## The following function returns a matrix that is an inverse
+## of special "matrix", returned by makeCacheMatrix function.
+## If the inverse has already been calculated, it returns
+## the reverse from the cache. Otherwise it calculates the inverse
+## of the matrix and sets the value of the inverse in the cache
+##  using the 'setinv' function.
 cacheSolve <- function(x, ...) {
         inv <- x$getinv()
         if (!is.null(inv)) {
           message("Retrieving the inverse from cache")
           return(inv)
         }
-        
         data <- x$get()
         inv <- solve(data, ...)
         x$setinv(inv)
